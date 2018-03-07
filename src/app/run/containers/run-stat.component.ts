@@ -5,7 +5,6 @@ import * as fromRun from '../reducers';
 @Component({
     selector: 'app-run-stat',
     templateUrl: './run-stat.component.html',
-    styleUrls: ['./run-stat.component.scss'],
 })
 export class RunStatComponent implements OnInit {
     runs$ = this.store.select(fromRun.getAllRuns);

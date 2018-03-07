@@ -1,3 +1,15 @@
-<p>
-  run-list works!
-</p>
+<clr-datagrid>
+  <clr-dg-column>Class</clr-dg-column>
+  <clr-dg-column>Floor</clr-dg-column>
+
+  <clr-dg-row *clrDgItems="let run of runs$ | async">
+    <clr-dg-cell>{{run.character_chosen}}</clr-dg-cell>
+    <clr-dg-cell>{{run.floor_reached}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{(runs$ | async).length}} runs
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>
