@@ -1,0 +1,29 @@
+<clr-main-container>
+  <clr-header class="header-5">
+    <div class="branding">
+      <a href="#" class="nav-link">
+        <span class="clr-icon clr-clarity-logo"></span>
+        <span class="title">STS LOGS</span>
+      </a>
+    </div>
+    <div class="header-nav" [clr-nav-level]="1">
+      <a class="nav-link" href="#" [routerLink]="['/runs']" routerLinkActive="active">
+        <span class="nav-text">Run</span>
+      </a>
+      <a class="nav-link" href="#" [routerLink]="['/cards']" routerLinkActive="active">
+        <span class="nav-text">Card</span>
+      </a>
+      <a class="nav-link" href="#" [routerLink]="['/relics']" routerLinkActive="active">
+        <span class="nav-text">Relic</span>
+      </a>
+      <!-- <a class="nav-link" href="#" [routerLink]="['/monsters']" routerLinkActive="active"><span class="nav-text">Monster</span></a> -->
+      <!-- <a class="nav-link" href="#" [routerLink]="['/shop']" routerLinkActive="active"><span class="nav-text">Shop</span></a> -->
+      <a class="nav-link" href="#" [routerLink]="['/about']" routerLinkActive="active">
+        <span class="nav-text">About</span>
+      </a>
+    </div>
+    <div class="header-actions">
+    </div>
+  </clr-header>
+  <router-outlet></router-outlet>
+</clr-main-container>

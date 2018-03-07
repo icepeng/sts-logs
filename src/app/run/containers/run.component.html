@@ -1,0 +1,18 @@
+<nav class="subnav">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./', 'upload']" routerLinkActive="active">Upload</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./', 'stat']" routerLinkActive="active">Stat</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./', 'list']" routerLinkActive="active">List</a>
+        </li>
+    </ul>
+</nav>
+<div class="content-container">
+    <div class="content-area">
+        <router-outlet></router-outlet>
+    </div>
+</div>
