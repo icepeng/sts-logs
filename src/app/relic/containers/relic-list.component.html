@@ -1,0 +1,19 @@
+<clr-datagrid>
+  <clr-dg-column clrDgField="name">Name</clr-dg-column>
+  <clr-dg-column clrDgField="runs">Runs</clr-dg-column>
+  <clr-dg-column clrDgField="wins">Wins</clr-dg-column>
+  <clr-dg-column clrDgField="winRate">Win Rate%</clr-dg-column>
+
+  <clr-dg-row *clrDgItems="let item of list$ | async">
+    <clr-dg-cell>{{item.name}}</clr-dg-cell>
+    <clr-dg-cell>{{item.runs}}</clr-dg-cell>
+    <clr-dg-cell>{{item.wins}}</clr-dg-cell>
+    <clr-dg-cell>{{item.winRate | percent}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{(runs$ | async).length}} cards
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

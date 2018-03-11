@@ -38,8 +38,10 @@ export class UploadComponent implements OnInit {
             buffer.push(this.read(file));
         }
 
-        const runs = await Promise.all(buffer);
+        const runs = await Promise.all(buffer).then(res =>
+            res.filter(x => !!x.score),
+        );
         this.store.dispatch(new RunAction.Load(runs));
-        this.router.navigate(['runs', 'stat']);
+        this.router.navigate(['runs', 'list']);
     }
 }

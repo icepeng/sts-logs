@@ -1,9 +1,12 @@
+<app-playcount [runs]="runs$ | async"></app-playcount>
 <clr-datagrid>
-  <clr-dg-column>Class</clr-dg-column>
-  <clr-dg-column>Floor</clr-dg-column>
+  <clr-dg-column clrDgField="character_chosen">Class</clr-dg-column>
+  <clr-dg-column clrDgField="score">Score</clr-dg-column>
+  <clr-dg-column clrDgField="floor_reached">Floor</clr-dg-column>
 
   <clr-dg-row *clrDgItems="let run of runs$ | async">
     <clr-dg-cell>{{run.character_chosen}}</clr-dg-cell>
+    <clr-dg-cell>{{run.score}}</clr-dg-cell>
     <clr-dg-cell>{{run.floor_reached}}</clr-dg-cell>
   </clr-dg-row>
 

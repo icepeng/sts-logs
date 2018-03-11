@@ -9,7 +9,9 @@ import { StoreModule } from '@ngrx/store';
 
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
+import { CardModule } from './card/card.module';
 import { metaReducers, reducers } from './reducers';
+import { RelicModule } from './relic/relic.module';
 import { appRoutes } from './routes';
 import { RunModule } from './run/run.module';
 
@@ -24,6 +26,8 @@ import { RunModule } from './run/run.module';
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot(reducers, { metaReducers }),
         RunModule.forRoot(),
+        CardModule.forRoot(),
+        RelicModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent],

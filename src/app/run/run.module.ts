@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ClassWinrateComponent } from './components/class-winrate.component';
-import { OverallWinrateComponent } from './components/overall-winrate.component';
+import { PlaycountComponent } from './components/playcount.component';
 import { RunListComponent } from './containers/run-list.component';
 import { RunStatComponent } from './containers/run-stat.component';
 import { RunComponent } from './containers/run.component';
@@ -29,7 +29,7 @@ import { RunService } from './services/run.service';
         RunStatComponent,
         RunListComponent,
         ClassWinrateComponent,
-        OverallWinrateComponent,
+        PlaycountComponent,
     ],
 })
 export class RunModule {

@@ -7,6 +7,6 @@ export const appRoutes: Routes = [
         path: 'about',
         component: AboutComponent,
     },
-    { path: '', redirectTo: 'about', pathMatch: 'full' },
-    { path: '**', redirectTo: 'about' },
+    { path: '', redirectTo: 'runs', pathMatch: 'full' },
+    { path: '**', redirectTo: 'runs' },
 ];

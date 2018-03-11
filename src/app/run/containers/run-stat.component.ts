@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRun from '../reducers';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-run-stat',
