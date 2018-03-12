@@ -6,33 +6,6 @@ import { RunCard } from '../models/run-card.model';
 export class CardService {
     constructor() {}
 
-    private parseCard(card: string) {
-        const splitted = card.split('+');
-        const name = splitted[0];
-        const upgrade = splitted[1] ? +splitted[1] : 0;
-        return {
-            name,
-            upgrade,
-        };
-    }
-
-    getCards(runs: Run[]) {
-        const cards = {};
-        for (const run of runs) {
-            for (const card of run.master_deck) {
-                const { name } = this.parseCard(card);
-                cards[name] = true;
-            }
-            for (const choice of run.card_choices) {
-                cards[choice.picked] = true;
-                for (const x of choice.not_picked) {
-                    cards[x] = true;
-                }
-            }
-        }
-        return Object.keys(cards);
-    }
-
     getRuns(name: string, runCard: RunCard[]) {
         return runCard.filter(x => x.card === name).length;
     }
@@ -68,5 +41,89 @@ export class CardService {
                     .length,
             0,
         );
+    }
+
+    getRunsByCount(
+        card: string,
+        runCard: RunCard[],
+    ): { name: string; value: number }[] {
+        return Object.entries(
+            runCard.filter(x => x.card === card).reduce(
+                (obj, x) => {
+                    const item = obj[x.count] || 0;
+                    return {
+                        ...obj,
+                        [x.count]: item + 1,
+                    };
+                },
+                {} as { [count: number]: number },
+            ),
+        ).map(([name, value]) => ({ name, value }));
+    }
+
+    getWinrateByCount(
+        card: string,
+        runCard: RunCard[],
+        runEntities: { [id: string]: Run },
+    ): { name: string; value: number }[] {
+        return Object.entries(
+            runCard.filter(x => x.card === card).reduce(
+                (obj, x) => {
+                    const item = obj[x.count] || { run: 0, win: 0 };
+                    return {
+                        ...obj,
+                        [x.count]: {
+                            run: item.run + 1,
+                            win: runEntities[x.run].victory
+                                ? item.win + 1
+                                : item.win,
+                        },
+                    };
+                },
+                {} as { [count: number]: { run: number; win: number } },
+            ),
+        ).map(([name, x]) => ({ name, value: x.win / x.run }));
+    }
+
+    getRunsByUpgrade(
+        card: string,
+        runCard: RunCard[],
+    ): { name: string; value: number }[] {
+        return Object.entries(
+            runCard.filter(x => x.card === card).reduce(
+                (obj, x) => {
+                    const item = obj[x.maxUpgrade] || 0;
+                    return {
+                        ...obj,
+                        [x.maxUpgrade]: item + 1,
+                    };
+                },
+                {} as { [upgrade: number]: number },
+            ),
+        ).map(([name, value]) => ({ name, value }));
+    }
+
+    getWinrateByUpgrade(
+        card: string,
+        runCard: RunCard[],
+        runEntities: { [id: string]: Run },
+    ): { name: string; value: number }[] {
+        return Object.entries(
+            runCard.filter(x => x.card === card).reduce(
+                (obj, x) => {
+                    const item = obj[x.maxUpgrade] || { run: 0, win: 0 };
+                    return {
+                        ...obj,
+                        [x.maxUpgrade]: {
+                            run: item.run + 1,
+                            win: runEntities[x.run].victory
+                                ? item.win + 1
+                                : item.win,
+                        },
+                    };
+                },
+                {} as { [upgrade: number]: { run: number; win: number } },
+            ),
+        ).map(([name, x]) => ({ name, value: x.win / x.run }));
     }
 }

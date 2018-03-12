@@ -1,21 +1,81 @@
-<clr-datagrid>
-  <clr-dg-column clrDgField="name">Name</clr-dg-column>
-  <clr-dg-column clrDgField="runs">Runs</clr-dg-column>
-  <clr-dg-column clrDgField="wins">Wins</clr-dg-column>
-  <clr-dg-column clrDgField="winRate">Win Rate%</clr-dg-column>
-  <clr-dg-column clrDgField="pickRate">Pick Rate%</clr-dg-column>
+<div class="row">
+  <div class="col-sm-4">
+    <clr-datagrid [clrDgSingleSelected]="selected$ | async" (clrDgSingleSelectedChange)="selected$.next($event)" [clDgRowSelection]="true">
+      <clr-dg-column clrDgField="name">Name</clr-dg-column>
+      <clr-dg-column clrDgField="runs">Runs</clr-dg-column>
+      <clr-dg-column clrDgField="wins">Wins</clr-dg-column>
+      <clr-dg-column clrDgField="winRate">Win%</clr-dg-column>
+      <clr-dg-column clrDgField="pickRate">Pick%</clr-dg-column>
 
-  <clr-dg-row *clrDgItems="let item of list$ | async">
-    <clr-dg-cell>{{item.name}}</clr-dg-cell>
-    <clr-dg-cell>{{item.runs}}</clr-dg-cell>
-    <clr-dg-cell>{{item.wins}}</clr-dg-cell>
-    <clr-dg-cell>{{item.winRate | percent}}</clr-dg-cell>
-    <clr-dg-cell>{{item.pickRate | percent}}</clr-dg-cell>
-  </clr-dg-row>
+      <clr-dg-row *clrDgItems="let item of list$ | async" [clrDgItem]="item.name">
+        <clr-dg-cell>{{item.name}}</clr-dg-cell>
+        <clr-dg-cell>{{item.runs}}</clr-dg-cell>
+        <clr-dg-cell>{{item.wins}}</clr-dg-cell>
+        <clr-dg-cell>{{item.winRate | percent}}</clr-dg-cell>
+        <clr-dg-cell>{{item.pickRate | percent}}</clr-dg-cell>
+      </clr-dg-row>
 
-  <clr-dg-footer>
-    <clr-dg-pagination #pagination [clrDgPageSize]="10">
-      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{(list$ | async).length}} cards
-    </clr-dg-pagination>
-  </clr-dg-footer>
-</clr-datagrid>
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="15">
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{(list$ | async).length}} cards
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div *ngIf="selected$ | async as selected" class="col-sm-8">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Runs by Count
+          </div>
+          <div class="card-block">
+            <div class="card-text card-chart">
+              <ngx-charts-pie-chart [results]="runsByCount$ | async" [labels]="true">
+              </ngx-charts-pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Win% by Count
+          </div>
+          <div class="card-block">
+            <div class="card-text card-chart">
+              <ngx-charts-bar-vertical [results]="winrateByCount$ | async" [xAxis]="true" [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Runs by Upgrade (Max in deck)
+          </div>
+          <div class="card-block">
+            <div class="card-text card-chart">
+              <ngx-charts-pie-chart [results]="runsByUpgrade$ | async" [labels]="true">
+              </ngx-charts-pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Win% by Upgrade (Max in deck)
+          </div>
+          <div class="card-block">
+            <div class="card-text card-chart">
+              <ngx-charts-bar-vertical [results]="winrateByUpgrade$ | async" [xAxis]="true" [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

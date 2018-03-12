@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Run } from '..//models/run.model';
+import { Run } from '../models/run.model';
 
 export enum RunActionTypes {
     Load = '[Run] Load',
