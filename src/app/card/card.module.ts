@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
+import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { CardListComponent } from './containers/card-list.component';
 import { CardOverallComponent } from './containers/card-overall.component';
 import { CardComponent } from './containers/card.component';
+import { reducers } from './reducers';
 import { CardService } from './services/card.service';
 
 @NgModule({
@@ -36,6 +38,7 @@ export class CardModule {
                 ],
             },
         ]),
+        StoreModule.forFeature('card', reducers),
     ],
 })
 export class RootCardModule {}

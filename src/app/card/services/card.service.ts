@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Run } from '../../run/models/run.model';
+import { RunCard } from '../models/run-card.model';
 
 @Injectable()
 export class CardService {
@@ -13,36 +14,6 @@ export class CardService {
             name,
             upgrade,
         };
-    }
-
-    private compressDeck(deck: string[]) {
-        return deck.reduce(
-            (obj, card) => {
-                const { name, upgrade } = this.parseCard(card);
-                const info = obj[name] || {
-                    count: 0,
-                    maxUpgrade: 0,
-                };
-                return {
-                    ...obj,
-                    [name]: {
-                        name,
-                        count: info.count + 1,
-                        maxUpgrade:
-                            info.maxUpgrade > upgrade
-                                ? info.maxUpgrade
-                                : upgrade,
-                    },
-                };
-            },
-            {} as {
-                [name: string]: {
-                    name: string;
-                    count: number;
-                    maxUpgrade: number;
-                };
-            },
-        );
     }
 
     getCards(runs: Run[]) {
@@ -62,56 +33,40 @@ export class CardService {
         return Object.keys(cards);
     }
 
-    getRuns(name: string, runs: Run[]) {
-        return runs.reduce((cnt, run) => {
-            const deckInfo = this.compressDeck(run.master_deck);
-            if (deckInfo[name]) {
-                return cnt + 1;
-            }
-            return cnt;
-        }, 0);
+    getRuns(name: string, runCard: RunCard[]) {
+        return runCard.filter(x => x.card === name).length;
     }
 
-    getWins(name: string, runs: Run[]) {
-        return runs.reduce((cnt, run) => {
-            const deckInfo = this.compressDeck(run.master_deck);
-            if (deckInfo[name] && run.victory) {
-                return cnt + 1;
-            }
-            return cnt;
-        }, 0);
+    getWins(
+        name: string,
+        runCard: RunCard[],
+        runEntities: { [id: string]: Run },
+    ) {
+        return runCard.filter(
+            x => x.card === name && runEntities[x.run].victory,
+        ).length;
     }
 
     getChoices(name: string, runs: Run[]) {
-        return runs.reduce((cnt, run) => {
-            const choices = run.card_choices;
-            return (
+        return runs.reduce(
+            (cnt, run) =>
                 cnt +
-                choices.reduce((sum, choice) => {
-                    if (choice.picked === name) {
-                        return sum + 1;
-                    }
-                    if (choice.not_picked.find(x => x === name)) {
-                        return sum + 1;
-                    }
-                    return sum;
-                }, 0)
-            );
-        }, 0);
+                run.card_choices.filter(
+                    choice =>
+                        choice.picked === name ||
+                        choice.not_picked.find(x => x === name),
+                ).length,
+            0,
+        );
     }
 
     getPicks(name: string, runs: Run[]) {
-        return runs.reduce((cnt, run) => {
-            const choices = run.card_choices;
-            return (
+        return runs.reduce(
+            (cnt, run) =>
                 cnt +
-                choices.reduce((sum, choice) => {
-                    if (choice.picked === name) {
-                        return sum + 1;
-                    }
-                    return sum;
-                }, 0)
-            );
-        }, 0);
+                run.card_choices.filter(choice => choice.picked === name)
+                    .length,
+            0,
+        );
     }
 }
