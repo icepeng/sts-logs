@@ -15,7 +15,7 @@ export interface EventChoice {
 
 export interface DamageTaken {
     damage: number;
-    enemies: string[];
+    enemies: string;
     floor: number;
     turns: number;
 }
