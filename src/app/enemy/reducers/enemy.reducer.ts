@@ -1,12 +1,13 @@
-import { EnemyActions, EnemyActionTypes } from '../actions/enemy.actions';
 import { RunActions, RunActionTypes } from '../../run/actions/run.action';
-import { Run, DamageTaken } from '../../run/models/run.model';
+import { Run } from '../../run/models/run.model';
+import { EnemyActions, EnemyActionTypes } from '../actions/enemy.actions';
+import { Damage, Kill } from '../models/enemy.model';
 
 export interface State {
     enemies: { [name: string]: boolean };
     selectedEnemy: string | null;
-    damages: (DamageTaken & { run: string })[];
-    kills: { enemy: string; run: string }[];
+    damages: Damage[];
+    kills: Kill[];
 }
 
 export const initialState: State = {

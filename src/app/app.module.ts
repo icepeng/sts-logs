@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { CardModule } from './card/card.module';
+import { EnemyModule } from './enemy/enemy.module';
 import { metaReducers, reducers } from './reducers';
 import { RelicModule } from './relic/relic.module';
 import { appRoutes } from './routes';
@@ -28,6 +29,7 @@ import { RunModule } from './run/run.module';
         RunModule.forRoot(),
         CardModule.forRoot(),
         RelicModule.forRoot(),
+        EnemyModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent],

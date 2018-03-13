@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-sm-8">
+    <clr-datagrid>
+      <clr-dg-column clrDgField="name">Name</clr-dg-column>
+      <clr-dg-column clrDgField="damage">Damage taken</clr-dg-column>
+      <clr-dg-column clrDgField="kill">Killed by</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let item of list$ | async">
+        <clr-dg-cell>{{item.name}}</clr-dg-cell>
+        <clr-dg-cell>{{item.damage}}</clr-dg-cell>
+        <clr-dg-cell>{{item.kill}}</clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="15">
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{(list$ | async).length}} enemies
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div class="col-sm-4">
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              Total Damage Taken
+            </div>
+            <div class="card-block">
+              <div class="card-text">
+                {{ damageTotal$ | async }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              Damage Taken / Run
+            </div>
+            <div class="card-block">
+              <div class="card-text">
+                {{ damageAvg$ | async | number }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              Damage taken per Stage
+            </div>
+            <div class="card-block">
+              <div class="card-text card-chart">
+                <ngx-charts-pie-chart [results]="damagePerStage$ | async" [labels]="true">
+                </ngx-charts-pie-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
