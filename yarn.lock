@@ -2197,6 +2197,12 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
+echarts@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.0.4.tgz#36aa8a47d33543d3dfe6a7bc1228ddc3a1e41157"
+  dependencies:
+    zrender "4.0.3"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -4635,6 +4641,10 @@ negotiator@0.6.1:
 neo-async@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.0.tgz#76b1c823130cca26acfbaccc8fbaf0a2fa33b18f"
+
+ngx-echarts@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-echarts/-/ngx-echarts-2.1.0.tgz#5970e3a797df277e739d7dc97394e1257d0a348e"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -7805,3 +7815,7 @@ zip-object@^0.1.0:
 zone.js@^0.8.16:
   version "0.8.20"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.20.tgz#a218c48db09464b19ff6fc8f0d4bb5b1046e185d"
+
+zrender@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-4.0.3.tgz#801ef001101750a61857f84e64c4d5fb3c88cca7"
