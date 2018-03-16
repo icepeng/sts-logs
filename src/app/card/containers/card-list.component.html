@@ -36,6 +36,42 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Win% by Count
+          </div>
+          <div class="card-block">
+            <div class="card-text">
+              <app-winrate-count></app-winrate-count>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Runs by Upgrade (Max in deck)
+          </div>
+          <div class="card-block">
+            <div class="card-text">
+              <app-run-upgrade></app-run-upgrade>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Win% by Upgrade (Max in deck)
+          </div>
+          <div class="card-block">
+            <div class="card-text">
+              <app-winrate-upgrade></app-winrate-upgrade>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div *ngIf="selected$ | async as selected" class="col-sm-8">
