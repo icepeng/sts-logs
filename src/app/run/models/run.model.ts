@@ -1,4 +1,6 @@
-export type Path = 'M' | '$' | '?' | 'T' | 'E' | 'BOSS'; // M = Monster, $ = Shop, ? = Unknown, T = Treasure, E = Elite, BOSS = Boss
+export type PathFloor = 'M' | '$' | '?' | 'T' | 'E' | 'R' | 'B' | null;
+export type PathTaken = 'M' | '$' | '?' | 'T' | 'E' | 'R' | 'BOSS';
+// M = Monster, $ = Shop, ? = Unknown, T = Treasure, E = Elite, R = Rest, BOSS = Boss
 export type Charater = 'IRONCLAD' | 'THE_SILENT';
 
 export interface CardChoice {
@@ -36,7 +38,8 @@ export interface Run {
     score: number;
     is_daily: boolean;
     is_ascension_mode: boolean;
-    path_taken: Path[];
+    path_per_floor: PathFloor[];
+    path_taken: PathTaken[];
     items_purchased: string[];
     purchased_purges: number;
     victory: boolean;

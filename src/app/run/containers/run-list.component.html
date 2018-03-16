@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-sm-8">
-    <clr-datagrid>
+  <div class="col-sm-4">
+    <clr-datagrid [clrDgSingleSelected]="selected$ | async" (clrDgSingleSelectedChange)="selected$.next($event)" [clDgRowSelection]="true">
       <clr-dg-column clrDgField="character_chosen">Class</clr-dg-column>
       <clr-dg-column clrDgField="score">Score</clr-dg-column>
       <clr-dg-column clrDgField="floor_reached">Floor</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let run of runs$ | async">
+      <clr-dg-row *clrDgItems="let run of runs$ | async" [clrDgItem]="run.play_id">
         <clr-dg-cell>{{run.character_chosen}}</clr-dg-cell>
         <clr-dg-cell>{{run.score}}</clr-dg-cell>
         <clr-dg-cell>{{run.floor_reached}}</clr-dg-cell>
@@ -18,14 +18,14 @@
       </clr-dg-footer>
     </clr-datagrid>
   </div>
-  <div class="col-sm-4">
+  <div *ngIf="selectedRun$ | async as selectedRun" class="col-sm-8">
     <div class="card">
       <div class="card-header">
-        Ironclad vs The Silent
+        Run Flow
       </div>
       <div class="card-block">
         <div class="card-text">
-          <app-playcount [runs]="runs$ | async"></app-playcount>
+          <app-run-flow [run]="selectedRun"></app-run-flow>
         </div>
       </div>
     </div>

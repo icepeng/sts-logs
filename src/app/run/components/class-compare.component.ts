@@ -3,11 +3,11 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Run } from '../models/run.model';
 
 @Component({
-    selector: 'app-playcount',
-    templateUrl: './playcount.component.html',
+    selector: 'app-class-compare',
+    templateUrl: './class-compare.component.html',
     styles: [],
 })
-export class PlaycountComponent implements OnInit, OnChanges {
+export class ClassCompareComponent implements OnInit, OnChanges {
     @Input() runs: Run[] = [];
     options = {
         tooltip: {},

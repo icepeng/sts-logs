@@ -42,6 +42,6 @@ export class UploadComponent implements OnInit {
             res.filter(x => !!x.score),
         );
         this.store.dispatch(new RunAction.Load(runs));
-        this.router.navigate(['runs', 'list']);
+        this.router.navigate(['runs', 'stat']);
     }
 }

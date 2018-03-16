@@ -1,41 +1,12 @@
-<h2>IRONCLAD vs THE SILENT</h2>
 <div class="row">
-  <div class="col-sm-6">
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-header">
-            Play Count
-          </div>
-          <div class="card-block">
-            <div class="card-text">
-              ...
-            </div>
-          </div>
-        </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        Class Compare
       </div>
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-header">
-            Win Rate%
-          </div>
-          <div class="card-block">
-            <div class="card-text">
-              ...
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-header">
-            High Score
-          </div>
-          <div class="card-block">
-            <div class="card-text">
-              ...
-            </div>
-          </div>
+      <div class="card-block">
+        <div class="card-text">
+          <app-class-compare [runs]="runs$ | async"></app-class-compare>
         </div>
       </div>
     </div>

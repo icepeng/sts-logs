@@ -6,13 +6,14 @@ import { ClarityModule } from '@clr/angular';
 import { StoreModule } from '@ngrx/store';
 import { NgxEchartsModule } from 'ngx-echarts';
 
-import { PlaycountComponent } from './components/playcount.component';
+import { ClassCompareComponent } from './components/class-compare.component';
 import { RunListComponent } from './containers/run-list.component';
 import { RunStatComponent } from './containers/run-stat.component';
 import { RunComponent } from './containers/run.component';
 import { UploadComponent } from './containers/upload.component';
 import { reducers } from './reducers';
 import { RunService } from './services/run.service';
+import { RunFlowComponent } from './components/run-flow.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { RunService } from './services/run.service';
         UploadComponent,
         RunStatComponent,
         RunListComponent,
-        PlaycountComponent,
+        ClassCompareComponent,
+        RunFlowComponent,
     ],
 })
 export class RunModule {
