@@ -14,6 +14,8 @@ import { UploadComponent } from './containers/upload.component';
 import { reducers } from './reducers';
 import { RunService } from './services/run.service';
 import { RunFlowComponent } from './components/run-flow.component';
+import { PathRatioComponent } from './components/path-ratio.component';
+import { CampfireUsageComponent } from './components/campfire-usage.component';
 
 @NgModule({
     imports: [
@@ -30,6 +32,8 @@ import { RunFlowComponent } from './components/run-flow.component';
         RunListComponent,
         ClassCompareComponent,
         RunFlowComponent,
+        PathRatioComponent,
+        CampfireUsageComponent,
     ],
 })
 export class RunModule {

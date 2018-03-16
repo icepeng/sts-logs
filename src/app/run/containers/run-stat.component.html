@@ -11,4 +11,28 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        Path Ratio
+      </div>
+      <div class="card-block">
+        <div class="card-text">
+          <app-path-ratio [runs]="runs$ | async"></app-path-ratio>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        Campfire Usage (Only rest, upgrade)
+      </div>
+      <div class="card-block">
+        <div class="card-text">
+          <app-campfire-usage [runs]="runs$ | async"></app-campfire-usage>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
