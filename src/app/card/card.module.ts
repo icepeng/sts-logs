@@ -3,7 +3,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { StoreModule } from '@ngrx/store';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 
 import { RunCountComponent } from './components/run-count.component';
@@ -17,13 +16,7 @@ import { reducers } from './reducers';
 import { CardService } from './services/card.service';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        NgxChartsModule,
-        ClarityModule,
-        NgxEchartsModule,
-    ],
+    imports: [CommonModule, RouterModule, ClarityModule, NgxEchartsModule],
     declarations: [
         CardComponent,
         CardOverallComponent,

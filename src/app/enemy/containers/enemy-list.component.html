@@ -47,12 +47,11 @@
         <div class="col-sm-12">
           <div class="card">
             <div class="card-header">
-              Damage taken per Stage
+              Damage taken per Act
             </div>
             <div class="card-block">
               <div class="card-text card-chart">
-                <ngx-charts-pie-chart [results]="damagePerStage$ | async" [labels]="true">
-                </ngx-charts-pie-chart>
+                <app-damage-per-act [damages]="damages$ | async"></app-damage-per-act>
               </div>
             </div>
           </div>

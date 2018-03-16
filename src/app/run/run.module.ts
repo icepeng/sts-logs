@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { StoreModule } from '@ngrx/store';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
-import { ClassWinrateComponent } from './components/class-winrate.component';
 import { PlaycountComponent } from './components/playcount.component';
 import { RunListComponent } from './containers/run-list.component';
 import { RunStatComponent } from './containers/run-stat.component';
@@ -20,7 +19,7 @@ import { RunService } from './services/run.service';
         CommonModule,
         FormsModule,
         RouterModule,
-        NgxChartsModule,
+        NgxEchartsModule,
         ClarityModule,
     ],
     declarations: [
@@ -28,7 +27,6 @@ import { RunService } from './services/run.service';
         UploadComponent,
         RunStatComponent,
         RunListComponent,
-        ClassWinrateComponent,
         PlaycountComponent,
     ],
 })

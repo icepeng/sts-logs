@@ -3,16 +3,17 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { StoreModule } from '@ngrx/store';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
+import { DamagePerActComponent } from './components/damage-per-act.component';
 import { EnemyListComponent } from './containers/enemy-list.component';
 import { EnemyComponent } from './containers/enemy.component';
 import { reducers } from './reducers';
 import { EnemyService } from './services/enemy.service';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgxChartsModule, ClarityModule],
-    declarations: [EnemyComponent, EnemyListComponent],
+    imports: [CommonModule, RouterModule, NgxEchartsModule, ClarityModule],
+    declarations: [EnemyComponent, EnemyListComponent, DamagePerActComponent],
 })
 export class EnemyModule {
     static forRoot(): ModuleWithProviders {

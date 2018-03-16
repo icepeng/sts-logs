@@ -10,13 +10,7 @@ import { EnemyService } from '../services/enemy.service';
 @Component({
     selector: 'app-enemy-list',
     templateUrl: './enemy-list.component.html',
-    styles: [
-        `
-    .card-chart {
-        width: 100%;
-        height: 320px;
-    }`,
-    ],
+    styles: [],
 })
 export class EnemyListComponent implements OnInit {
     list$: Observable<
@@ -26,6 +20,7 @@ export class EnemyListComponent implements OnInit {
             kill: number;
         }[]
     >;
+    damages$ = this.store.select(fromEnemy.getDamages);
     damageTotal$: Observable<number>;
     damageAvg$: Observable<number>;
     damagePerStage$: Observable<{ name: string; value: number }[]>;
@@ -39,7 +34,7 @@ export class EnemyListComponent implements OnInit {
         this.list$ = this.store.select(fromRun.getAllRuns).pipe(
             combineLatest(
                 this.store.select(fromEnemy.getEnemyEntities),
-                this.store.select(fromEnemy.getDamages),
+                this.damages$,
                 this.store.select(fromEnemy.getKills),
             ),
             map(([runs, enemyEntities, damages, kills]) => {
@@ -57,41 +52,12 @@ export class EnemyListComponent implements OnInit {
                 });
             }),
         );
-        this.damageTotal$ = this.store
-            .select(fromEnemy.getDamages)
-            .pipe(
-                map(damages => damages.reduce((sum, x) => sum + x.damage, 0)),
-            );
+        this.damageTotal$ = this.damages$.pipe(
+            map(damages => damages.reduce((sum, x) => sum + x.damage, 0)),
+        );
         this.damageAvg$ = this.damageTotal$.pipe(
             combineLatest(this.store.select(fromRun.getTotalRuns)),
             map(([total, count]) => total / count),
-        );
-        this.damagePerStage$ = this.store.select(fromEnemy.getDamages).pipe(
-            map(damages => {
-                const first = damages
-                    .filter(x => x.floor <= 16)
-                    .reduce((sum, x) => sum + x.damage, 0);
-                const second = damages
-                    .filter(x => x.floor > 16 && x.floor <= 33)
-                    .reduce((sum, x) => sum + x.damage, 0);
-                const third = damages
-                    .filter(x => x.floor > 33 && x.floor <= 50)
-                    .reduce((sum, x) => sum + x.damage, 0);
-                return [
-                    {
-                        name: 'Stage 1',
-                        value: first,
-                    },
-                    {
-                        name: 'Stage 2',
-                        value: second,
-                    },
-                    {
-                        name: 'Stage 3',
-                        value: third,
-                    },
-                ];
-            }),
         );
     }
 }

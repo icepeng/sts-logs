@@ -27,22 +27,13 @@ export class WinrateUpgradeComponent implements OnInit, OnChanges {
 
     options = {
         tooltip: {},
-        dataset: {
-            source: [
-                {
-                    name: '1',
-                    value: 5,
-                },
-                {
-                    name: '2',
-                    value: 10,
-                },
-            ],
-        },
+        xAxis: { type: 'category', data: [] },
+        yAxis: {},
         series: [
             {
-                name: 'bar',
+                name: 'Win%',
                 type: 'bar',
+                data: [],
             },
         ],
     };
@@ -52,39 +43,48 @@ export class WinrateUpgradeComponent implements OnInit, OnChanges {
     ngOnInit() {}
 
     ngOnChanges() {
+        const counts = this.getUpgrades(this.card, this.runCard);
         this.options = {
             ...this.options,
-            dataset: {
-                source: this.getWinrateByUpgrade(
-                    this.card,
-                    this.runCard,
-                    this.runEntities,
-                ),
-            },
+            xAxis: { type: 'category', data: counts },
+            series: [
+                {
+                    name: 'Win%',
+                    type: 'bar',
+                    data: counts.map(x =>
+                        this.getWinrateFromUpgrade(
+                            this.card,
+                            x,
+                            this.runCard,
+                            this.runEntities,
+                        ),
+                    ),
+                },
+            ],
         };
     }
 
-    getWinrateByUpgrade(
+    getUpgrades(card: string, runCard: RunCard[]) {
+        return runCard
+            .filter(x => x.card === card)
+            .map(x => x.maxUpgrade)
+            .filter((el, i, a) => i === a.indexOf(el))
+            .sort();
+    }
+
+    getWinrateFromUpgrade(
         card: string,
+        maxUpgrade: number,
         runCard: RunCard[],
         runEntities: { [id: string]: Run },
-    ): { name: string; value: number }[] {
-        return Object.entries(
-            runCard.filter(x => x.card === card).reduce(
-                (obj, x) => {
-                    const item = obj[x.maxUpgrade] || { run: 0, win: 0 };
-                    return {
-                        ...obj,
-                        [x.maxUpgrade]: {
-                            run: item.run + 1,
-                            win: runEntities[x.run].victory
-                                ? item.win + 1
-                                : item.win,
-                        },
-                    };
-                },
-                {} as { [upgrade: number]: { run: number; win: number } },
-            ),
-        ).map(([name, x]) => ({ name, value: x.win / x.run }));
+    ) {
+        const [win, run] = runCard
+            .filter(x => x.card === card && x.maxUpgrade === maxUpgrade)
+            .map(x => x.run)
+            .reduce(
+                ([w, r], x) => [w + (runEntities[x].victory ? 1 : 0), r + 1],
+                [0, 0] as [number, number],
+            );
+        return win / run;
     }
 }

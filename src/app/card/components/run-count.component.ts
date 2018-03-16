@@ -11,10 +11,12 @@ import { RunCard } from '../models/run-card.model';
 @Component({
     selector: 'app-run-count',
     templateUrl: './run-count.component.html',
-    styles: [`
+    styles: [
+        `
     .chart {
       height: 240px;
-    }`],
+    }`,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunCountComponent implements OnInit, OnChanges {
@@ -23,22 +25,11 @@ export class RunCountComponent implements OnInit, OnChanges {
 
     options = {
         tooltip: {},
-        dataset: {
-            source: [
-                {
-                    name: '1',
-                    value: 5,
-                },
-                {
-                    name: '2',
-                    value: 10,
-                },
-            ],
-        },
         series: [
             {
-                name: 'pie',
+                name: 'Count',
                 type: 'pie',
+                data: [],
             },
         ],
     };
@@ -50,9 +41,13 @@ export class RunCountComponent implements OnInit, OnChanges {
     ngOnChanges() {
         this.options = {
             ...this.options,
-            dataset: {
-                source: this.getRunsByCount(this.card, this.runCard),
-            },
+            series: [
+                {
+                    name: 'Count',
+                    type: 'pie',
+                    data: this.getRunsByCount(this.card, this.runCard),
+                },
+            ],
         };
     }
 

@@ -27,22 +27,13 @@ export class WinrateCountComponent implements OnInit, OnChanges {
 
     options = {
         tooltip: {},
-        dataset: {
-            source: [
-                {
-                    name: '1',
-                    value: 5,
-                },
-                {
-                    name: '2',
-                    value: 10,
-                },
-            ],
-        },
+        xAxis: { type: 'category', data: [] },
+        yAxis: {},
         series: [
             {
-                name: 'bar',
+                name: 'Win%',
                 type: 'bar',
+                data: [],
             },
         ],
     };
@@ -52,39 +43,48 @@ export class WinrateCountComponent implements OnInit, OnChanges {
     ngOnInit() {}
 
     ngOnChanges() {
+        const counts = this.getCounts(this.card, this.runCard);
         this.options = {
             ...this.options,
-            dataset: {
-                source: this.getWinrateByCount(
-                    this.card,
-                    this.runCard,
-                    this.runEntities,
-                ),
-            },
+            xAxis: { type: 'category', data: counts },
+            series: [
+                {
+                    name: 'Win%',
+                    type: 'bar',
+                    data: counts.map(x =>
+                        this.getWinrateFromCount(
+                            this.card,
+                            x,
+                            this.runCard,
+                            this.runEntities,
+                        ),
+                    ),
+                },
+            ],
         };
     }
 
-    getWinrateByCount(
+    getCounts(card: string, runCard: RunCard[]) {
+        return runCard
+            .filter(x => x.card === card)
+            .map(x => x.count)
+            .filter((el, i, a) => i === a.indexOf(el))
+            .sort();
+    }
+
+    getWinrateFromCount(
         card: string,
+        count: number,
         runCard: RunCard[],
         runEntities: { [id: string]: Run },
-    ): { name: string; value: number }[] {
-        return Object.entries(
-            runCard.filter(x => x.card === card).reduce(
-                (obj, x) => {
-                    const item = obj[x.count] || { run: 0, win: 0 };
-                    return {
-                        ...obj,
-                        [x.count]: {
-                            run: item.run + 1,
-                            win: runEntities[x.run].victory
-                                ? item.win + 1
-                                : item.win,
-                        },
-                    };
-                },
-                {} as { [count: number]: { run: number; win: number } },
-            ),
-        ).map(([name, x]) => ({ name, value: x.win / x.run }));
+    ) {
+        const [win, run] = runCard
+            .filter(x => x.card === card && x.count === count)
+            .map(x => x.run)
+            .reduce(
+                ([w, r], x) => [w + (runEntities[x].victory ? 1 : 0), r + 1],
+                [0, 0] as [number, number],
+            );
+        return win / run;
     }
 }

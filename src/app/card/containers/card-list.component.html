@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <clr-datagrid [clrDgSingleSelected]="selected$ | async" (clrDgSingleSelectedChange)="selected$.next($event)" [clDgRowSelection]="true">
       <clr-dg-column clrDgField="name">Name</clr-dg-column>
       <clr-dg-column clrDgField="runs">Runs</clr-dg-column>
@@ -22,7 +22,7 @@
       </clr-dg-footer>
     </clr-datagrid>
   </div>
-  <div class="col-sm-8">
+  <div *ngIf="selected$ | async as selected" class="col-sm-6">
     <div class="row">
       <div class="col-sm-6">
         <div class="card">
@@ -31,7 +31,7 @@
           </div>
           <div class="card-block">
             <div class="card-text">
-              <app-run-count></app-run-count>
+              <app-run-count [card]="selected" [runCard]="runCard$ | async"></app-run-count>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
           </div>
           <div class="card-block">
             <div class="card-text">
-              <app-winrate-count></app-winrate-count>
+              <app-winrate-count [card]="selected" [runCard]="runCard$ | async" [runEntities]="runEntities$ | async"></app-winrate-count>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
           </div>
           <div class="card-block">
             <div class="card-text">
-              <app-run-upgrade></app-run-upgrade>
+              <app-run-upgrade [card]="selected" [runCard]="runCard$ | async"></app-run-upgrade>
             </div>
           </div>
         </div>
@@ -67,63 +67,7 @@
           </div>
           <div class="card-block">
             <div class="card-text">
-              <app-winrate-upgrade></app-winrate-upgrade>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="selected$ | async as selected" class="col-sm-8">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Runs by Count
-          </div>
-          <div class="card-block">
-            <div class="card-text card-chart">
-              <ngx-charts-pie-chart [results]="runsByCount$ | async" [labels]="true">
-              </ngx-charts-pie-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Win% by Count
-          </div>
-          <div class="card-block">
-            <div class="card-text card-chart">
-              <ngx-charts-bar-vertical [results]="winrateByCount$ | async" [xAxis]="true" [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true">
-              </ngx-charts-bar-vertical>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Runs by Upgrade (Max in deck)
-          </div>
-          <div class="card-block">
-            <div class="card-text card-chart">
-              <ngx-charts-pie-chart [results]="runsByUpgrade$ | async" [labels]="true">
-              </ngx-charts-pie-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Win% by Upgrade (Max in deck)
-          </div>
-          <div class="card-block">
-            <div class="card-text card-chart">
-              <ngx-charts-bar-vertical [results]="winrateByUpgrade$ | async" [xAxis]="true" [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true">
-              </ngx-charts-bar-vertical>
+              <app-winrate-upgrade [card]="selected" [runCard]="runCard$ | async" [runEntities]="runEntities$ | async"></app-winrate-upgrade>
             </div>
           </div>
         </div>

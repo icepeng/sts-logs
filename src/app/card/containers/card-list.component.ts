@@ -31,10 +31,8 @@ export class CardListComponent implements OnInit {
         }[]
     >;
     selected$ = new BehaviorSubject<string | null>(null);
-    runsByCount$: Observable<any>;
-    winrateByCount$: Observable<any>;
-    runsByUpgrade$: Observable<any>;
-    winrateByUpgrade$: Observable<any>;
+    runCard$ = this.store.select(fromCard.getAllRunCard);
+    runEntities$ = this.store.select(fromRun.getRunEntities);
 
     constructor(private store: Store<any>, private cardService: CardService) {}
 
@@ -65,44 +63,6 @@ export class CardListComponent implements OnInit {
                     };
                 });
             }),
-        );
-        this.runsByCount$ = this.selected$.pipe(
-            withLatestFrom(this.store.select(fromCard.getAllRunCard)),
-            map(([selected, runCard]) =>
-                this.cardService.getRunsByCount(selected, runCard),
-            ),
-        );
-        this.winrateByCount$ = this.selected$.pipe(
-            withLatestFrom(
-                this.store.select(fromRun.getRunEntities),
-                this.store.select(fromCard.getAllRunCard),
-            ),
-            map(([selected, runEntities, runCard]) =>
-                this.cardService.getWinrateByCount(
-                    selected,
-                    runCard,
-                    runEntities,
-                ),
-            ),
-        );
-        this.runsByUpgrade$ = this.selected$.pipe(
-            withLatestFrom(this.store.select(fromCard.getAllRunCard)),
-            map(([selected, runCard]) =>
-                this.cardService.getRunsByUpgrade(selected, runCard),
-            ),
-        );
-        this.winrateByUpgrade$ = this.selected$.pipe(
-            withLatestFrom(
-                this.store.select(fromRun.getRunEntities),
-                this.store.select(fromCard.getAllRunCard),
-            ),
-            map(([selected, runEntities, runCard]) =>
-                this.cardService.getWinrateByUpgrade(
-                    selected,
-                    runCard,
-                    runEntities,
-                ),
-            ),
         );
     }
 
