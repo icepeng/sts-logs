@@ -47,11 +47,9 @@ export class RunFlowComponent implements OnInit, OnChanges {
             {
                 name: 'HP',
                 type: 'value',
-                max: 200,
             },
             {
                 name: 'Gold',
-                max: 1000,
                 type: 'value',
             },
         ],
