@@ -18,6 +18,12 @@ export class PathRatioComponent implements OnInit, OnChanges {
     @Input() runs: Run[];
     options = {
         tooltip: {},
+        legend: {
+            selected: {
+                Boss: false,
+                Treasure: false,
+            },
+        },
         series: [
             {
                 name: 'Path',
